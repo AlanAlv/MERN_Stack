@@ -24,6 +24,7 @@ export default class CreateNote extends Component {
         });
         if(this.props.match.params.id){
             const res = await axios.get('http://localhost:4000/api/notes/'+this.props.match.params.id);
+            console.log(this.props.match.params.id);
             this.setState({
                 title: res.data.title,
                 content: res.data.content,
@@ -43,13 +44,14 @@ export default class CreateNote extends Component {
             date: this.state.date,
             author: this.state.userSelected
         };
+        console.log(this.state._id);
         if (this.state.editing){
             await axios.put('http://localhost:4000/api/notes/'+ this.state._id, newNote);
         }
         else{
             await axios.post('http://localhost:4000/api/notes/', newNote);
         }
-        window.location.href = '/';
+        this.props.history.push ('/');
     }
 
     onInputChange = (e) =>{
